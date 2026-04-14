@@ -1,0 +1,10 @@
+{
+  "name": "grabfood-microservices",
+  "private": true,
+  "workspaces": [
+    "services/*"
+  ],
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
