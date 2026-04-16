@@ -1,23 +1,48 @@
 version: "3.8"
 
 services:
-  restaurant-service:
-    build: ./services/restaurant-service
-    ports:
-      - "3001:3000"
 
-  payment-service:
-    build: ./services/payment-service
+  mongo:
+    image: mongo:latest
     ports:
-      - "3003:3000"
+      - "27018:27017"
+    volumes:
+      - mongo-data:/data/db
 
-  order-service:
-    build: ./services/order-service
+  auth-service:
+    build: ./services/auth-service
     ports:
-      - "3002:3000"
+      - "3107:3000"
+    volumes:
+      - ./services/auth-service:/app
+      - /app/node_modules
     environment:
-      - RESTAURANT_SERVICE_URL=http://restaurant-service:3000
-      - PAYMENT_SERVICE_URL=http://payment-service:3000
+      - MONGO_URI=${MONGO_URI_AUTH}
     depends_on:
-      - restaurant-service
-      - payment-service
+      - mongo
+
+  # restaurant-service:
+  #   build: ./services/restaurant-service
+  #   ports:
+  #     - "3001:3000"
+
+  # payment-service:
+  #   build: ./services/payment-service
+  #   ports:
+  #     - "3003:3000"
+
+  # order-service:
+  #   build: ./services/order-service
+  #   ports:
+  #     - "3002:3000"
+  #   environment:
+  #     - MONGO_URI=${MONGO_URI_AUTH}
+  #     - RESTAURANT_SERVICE_URL=${RESTAURANT_SERVICE_URL}
+  #     - PAYMENT_SERVICE_URL=${PAYMENT_SERVICE_URL}
+  #   depends_on:
+  #     - mongo
+  #     - restaurant-service
+  #     - payment-service
+
+volumes:
+  mongo-data:
