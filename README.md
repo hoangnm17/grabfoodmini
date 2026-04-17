@@ -118,10 +118,12 @@ http
 POST /api/auth/login
 JSON
 
+
 {
   "phone": "0123456789",
   "password": "123456"
 }
+
 Access protected resource
 http
 
@@ -131,12 +133,19 @@ Authorization: Bearer <access_token>
 Bash
 
 auth-service/
+
  ├── domain
+ 
  ├── application
+ 
  ├── infrastructure
+ 
  ├── interface
+ 
  ├── middlewares
+ 
  ├── routes
+ 
 🔮 Roadmap
 OAuth (Google Login)
 
